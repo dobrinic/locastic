@@ -2,8 +2,14 @@
 
 {% block body_id 'homepage' %}
 
+{% block sidebar %}
+    <div class="jumbotron">
+        <div>upload area</div>
+    </div>
+{% endblock %}
+
 {% block main %}
-    <div class="jumbotron">{{ 'post.no_posts_found'|trans }}
+    <div class="jumbotron">
         initial setup
     </div>
 {% endblock %}
