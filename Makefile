@@ -13,7 +13,7 @@ up:
 down:
 	docker-compose down
 
-build:
+dev:
 	docker-compose exec -u www-data app yarn encore dev
 
 watch:

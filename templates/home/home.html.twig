@@ -2,15 +2,31 @@
 
 {% block body_id 'homepage' %}
 
-{% block sidebar %}
-    <div class="jumbotron">
-        <div>upload area</div>
-    </div>
-{% endblock %}
-
 {% block main %}
     <div class="jumbotron">
-        initial setup
+         <form id="raceCreate" enctype="multipart/form-data" method="POST" action="{{ path('import_csv') }}">
+            <div class="row">
+                <div class="form-group col-6">
+                    <label for="raceTitle">Race Name:</label>
+                    <input type="text" class="form-control" id="raceTitle" name="raceTitle" required>
+                </div>
+                <div class="form-group col-6">
+                    <label for="raceDate">Race Time:</label>
+                    <input type="datetime-local" class="form-control" id="raceDate" name="raceDate" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-6">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="csvFileInput" name="csvFile" required>
+                        <label class="custom-file-label" for="csvFileInput">Choose race CSV file</label>
+                    </div>
+                </div>
+                <div class="col-6 text-right">
+                    <button type="submit" class="btn btn-primary">Upload</button>
+                </div>
+            </div>
+        </form>
     </div>
 {% endblock %}
 
