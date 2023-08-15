@@ -2,17 +2,26 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use App\Repository\RaceRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RaceRepository::class)]
 #[ORM\Table(name: 'races')]
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['race:read']],
+    denormalizationContext: ['groups' => ['race:write']],
+)]
+#[ApiFilter(OrderFilter::class, properties: ['title', 'date', 'averageTimeMedium', 'averageTimeLong'], arguments: ['orderParameterName' => 'order'])]
 class Race
 {
     use TimestampableEntity;
@@ -22,18 +31,27 @@ class Race
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ApiFilter(SearchFilter::class, strategy: 'partial')]
+    #[Assert\NotBlank]
+    #[Groups(['race:read', 'race:write'])]
     #[ORM\Column(length: 50)]
     private ?string $title = null;
 
+    #[Assert\NotBlank]
+    #[Groups(['race:read', 'race:write'])]
     #[ORM\Column]
     private ?\DateTimeImmutable $date = null;
 
+    #[Groups(['race:read'])]
     #[ORM\Column(type: Types::TIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $averageTimeMedium = null;
 
+    #[Groups(['race:read'])]
     #[ORM\Column(type: Types::TIME_IMMUTABLE, nullable: true)]
     private ?\DateTimeImmutable $averageTimeLong = null;
 
+    #[Assert\NotNull]
+    #[Groups(['race:read'])]
     #[ORM\OneToMany(mappedBy: 'race', targetEntity: Runner::class, orphanRemoval: true)]
     private Collection $runners;
 
@@ -59,9 +77,9 @@ class Race
         return $this;
     }
 
-    public function getDate(): ?\DateTimeImmutable
+    public function getDate(): string
     {
-        return $this->date;
+        return $this->date->format('d.m.Y H:i:s');
     }
 
     public function setDate(\DateTimeImmutable $date): static
@@ -71,9 +89,9 @@ class Race
         return $this;
     }
 
-    public function getAverageTimeMedium(): ?\DateTimeImmutable
+    public function getAverageTimeMedium(): string
     {
-        return $this->averageTimeMedium;
+        return $this->averageTimeMedium->format('H:i:s');
     }
 
     public function setAverageTimeMedium(?\DateTimeImmutable $averageTimeMedium): static
@@ -83,9 +101,9 @@ class Race
         return $this;
     }
 
-    public function getAverageTimeLong(): ?\DateTimeImmutable
+    public function getAverageTimeLong(): string
     {
-        return $this->averageTimeLong;
+        return $this->averageTimeLong->format('H:i:s');
     }
 
     public function setAverageTimeLong(?\DateTimeImmutable $averageTimeLong): static

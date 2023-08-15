@@ -3,3 +3,7 @@ body{
 }
 
 @import "~bootstrap/scss/bootstrap";
+
+th.sortable, th.sortable-race{
+    cursor: pointer;
+}

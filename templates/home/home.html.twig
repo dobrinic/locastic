@@ -24,14 +24,59 @@
                 </div>
                 <div class="col-6 text-right">
                     <button type="submit" class="btn btn-primary">Upload</button>
+                    <button type="button" class="btn btn-primary" id="show-races">Show uploaded races</button>
                 </div>
             </div>
         </form>
     </div>
-{% endblock %}
 
-{# {% block stylesheets %}
-{% endblock %}
+    <div class="jumbotron races-jumbotron d-none">
+        <div class="container">
+            <h1>Races List</h1>
+            <input type="text" class="form-control" id="raceSearch" placeholder="Search Races by Title">
+            <table class="table table-sortable">
+                <thead>
+                <tr>
+                    <th class="sortable-race" data-dir="asc" data-column="title">Race Title</th>
+                    <th class="sortable-race" data-dir="asc" data-column="date">Race Date</th>
+                    <th class="sortable-race" data-dir="asc" data-column="averageTimeMedium">Average time medium distance</th>
+                    <th class="sortable-race" data-dir="asc" data-column="averageTimeLong">Average time long distance</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="race-table-body" data-path="{{ path('_api_/races{._format}_get_collection') }}">
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-{% block javascripts %}
-{% endblock %} #}
+    <div class="jumbotron runner-jumbotron d-none">
+        <div class="container">
+            <h1>Runners List</h1>
+            <div class="row">
+                <input type="text" class="form-control resultsSearch col-4" placeholder="Search Results by Racer Name" data-column="name">
+                <input type="text" class="form-control resultsSearch col-4" placeholder="Search Results by Distance" data-column="distance">
+                <input type="text" class="form-control resultsSearch col-4" placeholder="Search Results by Age Category" data-column="ageCategory">
+            </div>
+            <table class="table table-sortable">
+                <thead>
+                <tr>
+                    <th class="sortable" data-dir="asc" data-column="name">Racer Name</th>
+                    <th class="sortable" data-dir="asc" data-column="finishTime">Finish time</th>
+                    <th class="sortable" data-dir="asc" data-column="distance">Distance</th>
+                    <th class="sortable" data-dir="asc" data-column="ageCategory">Age Category</th>
+                    <th class="sortable" data-dir="asc" data-column="placement">Overall place</th>
+                    <th class="sortable" data-dir="asc" data-column="agePlacement">Age category place</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody id="runner-table-body">
+                </tbody>
+            </table>
+            <nav aria-label="Runner Pagination">
+                <ul class="pagination" id="runner-pagination">
+                </ul>
+            </nav>
+        </div>
+    </div>
+{% endblock %}
