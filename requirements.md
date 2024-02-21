@@ -1,10 +1,10 @@
-**Task for PHP Senior Developer**
+### Task for PHP Senior Developer
 
 Your task will be to create a simple api for importing and showing race results. You should use [Symfony](https://symfony.com/) with [ApiPlatform](https://api-platform.com/) and cover the solution with tests.
 
 Bonus points will go to the solutions that are optimized and written with clean code using design patterns.
 
-***Intro***
+### Intro
 
 What's expected of you:
 
@@ -13,10 +13,11 @@ What's expected of you:
 - Showing the imported results
 - Ability to edit a result
 
-***Import results***
+### Import results
 
 Create an endpoint for importing results from a CSV file. The endpoint should also receive the race title and date. Here is an example of CSV file content:
 
+```
 fullName,distance,time,ageCategory
 Matthias Floyd,medium,5:15:24,M18-25
 Toby Phillips,long,4:07:45,M26-34
@@ -28,6 +29,7 @@ Lorena Villegas,medium,2:09:31,F26-34
 Marc Rivera,long,6:23:14,M26-34
 Ryan Roberts,long,6:15:45,M26-34
 Sergio Spears,medium,2:13:45,M35-43
+```
 
 All the fields are required and distance should be medium or long. Age category doesn’t have predefined values, so it should accept any string.
 
@@ -51,7 +53,7 @@ Make sure to optimize the import for a larger number of results (10-20k). The ex
 |Ryan Roberts|6:15:45|5|2|M26-34|
 |Marc Rivera|6:23:14|6|3|M26-34|
 
-***Get races collection***
+### Get races collection
 
 Create an endpoint which returns imported races. Response should contain the following **fields**:
 
@@ -65,7 +67,7 @@ Create following **filters** for this endpoint:
 - Race title
 - Order filter for all returned fields
 
-***Get results by race***
+### Get results by race
 
 Create an endpoint which returns results by a given race. Response should contain the following **fields**:
 
@@ -83,6 +85,6 @@ Create following **filters** for this endpoint:
 - Distance
 - Age category
 
-***Edit single result***
+### Edit single result
 
 Create an endpoint for editing a single result. All fields except the placement fields can be edited.
