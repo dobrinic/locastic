@@ -36,23 +36,6 @@ services:
     depends_on:
       - app
       - mysql
-  # node:
-  #   image: node:14
-  #   volumes:
-  #     - .:/app
-  #   working_dir: /app
-  #   command: "npm install && npm run watch"
-  # composer:
-  #   container_name: composer
-  #   image: composer/composer
-  #   networks:
-  #     - locastic
-  #   ports:
-  #     - "9001:9000"
-  #   volumes:
-  #     - "./composer:/composer"
-  #   working_dir: /composer
-  #   command: install
 
 networks:
     locastic:
